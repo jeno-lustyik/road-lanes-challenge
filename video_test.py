@@ -1,12 +1,12 @@
 import cv2 as cv
 import numpy as np
 
-vid = cv.VideoCapture('test_videos/challenge.mp4')
+vid = cv.VideoCapture('test_videos/solidWhiteRight.mp4')
 
-size = (int(vid.get(3)), int(vid.get(4)))
+# size = (int(vid.get(3)), int(vid.get(4)))
 
 # result = cv.VideoWriter('test.mp4',
-#                         cv.VideoWriter_fourcc(*'MJPG'),
+#                         cv.VideoWriter_fourcc(*'MPEG'),
 #                         24, size)
 while True:
     ret, frame = vid.read()
@@ -17,7 +17,7 @@ while True:
         h = frame.shape[0]
         w = frame.shape[1]
 
-        polygon = np.array([[[w, h], [int(w/2), int(h * 0.55)], [int(w - w * 0.8), h]]])
+        polygon = np.array([[[w, h], [int(w/2), int(h * 0.55)], [int(w - w * 0.85), h]]])
         mask = np.zeros_like(frame_gray)
         mask = cv.fillPoly(mask, polygon, 255)
 
@@ -26,7 +26,7 @@ while True:
 
         match = cv.bitwise_and(edges, mask)
 
-        lines = cv.HoughLinesP(match, 4, np.pi / 180, 100, np.array([]), minLineLength=1, maxLineGap=50)
+        lines = cv.HoughLinesP(match, 2, np.pi / 180, 100, np.array([]), minLineLength=2, maxLineGap=25)
         img_lines = frame.copy()
         for i in range(len(lines)):
             for x1, y1, x2, y2 in lines[i]:
