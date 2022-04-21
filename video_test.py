@@ -4,11 +4,11 @@ import numpy as np
 vid = cv.VideoCapture('test_videos/solidWhiteRight.mp4')
 
 # setting up a result file to save the video into.
-# size = (int(vid.get(3)), int(vid.get(4)))
-#
-# result = cv.VideoWriter('test.mp4',
-#                         cv.VideoWriter_fourcc(*'MP4V'),
-#                         24, size)
+size = (int(vid.get(3)), int(vid.get(4)))
+
+result = cv.VideoWriter('test.mp4',
+                        cv.VideoWriter_fourcc(*'MP4V'),
+                        24, size)
 
 # Loading the video
 while True:
@@ -45,14 +45,14 @@ while True:
                     cv.line(img_lines, (x1, y1), (x2, y2), (0, 0, 255), 2)
 
         cv.imshow('video', img_lines)
-        # result.write(img_lines) # line to saving the frames to the result file
+        result.write(img_lines) # line to saving the frames to the result file
 
     # If the video reaches its last frame, set it back to frame 0.
     else:
         vid.set(cv.CAP_PROP_POS_FRAMES, 0)
         continue
 
-    # Escape sequence.
+    # Escape key.
     if cv.waitKey(10) == ord('q'):
         break
 

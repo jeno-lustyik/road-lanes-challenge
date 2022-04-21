@@ -9,3 +9,5 @@
     - Bitwise operation on the canny edge and the mask
     - HoughLinesP to get all the lines from the edges
     - Draw up these lines to each frame of the video.
+
+## 
